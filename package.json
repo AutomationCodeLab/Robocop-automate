@@ -1,0 +1,19 @@
+{
+  "name": "robocop-automate",
+  "version": "1.0.0",
+  "description": "Appium automations for Robocop application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AutomationCodeLab/Robocop-automate.git"
+  },
+  "author": "Alfred Afutu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AutomationCodeLab/Robocop-automate/issues"
+  },
+  "homepage": "https://github.com/AutomationCodeLab/Robocop-automate#readme"
+}
