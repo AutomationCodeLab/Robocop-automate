@@ -1,0 +1,22 @@
+plugins {
+    alias libs.plugins.kotlin
+    alias libs.plugins.ktlint
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.appium
+    implementation libs.bundles.kotlin
+
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.junit.jupiter.params
+    testRuntimeOnly libs.junit.jupiter.engine
+    testRuntimeOnly libs.junit.vintage.engine
+}
+
+test {
+    useJUnitPlatform()
+}
