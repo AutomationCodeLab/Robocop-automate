@@ -1,0 +1,4 @@
+server:
+  port: 4728
+  use-drivers:
+    - uiautomator2

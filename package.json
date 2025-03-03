@@ -4,7 +4,8 @@
   "description": "Appium automations for Robocop application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx appium --config src/test/resources/config.yaml"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/AutomationCodeLab/Robocop-automate/issues"
   },
-  "homepage": "https://github.com/AutomationCodeLab/Robocop-automate#readme"
+  "homepage": "https://github.com/AutomationCodeLab/Robocop-automate#readme",
+  "dependencies": {
+    "appium": "^2.12.0",
+    "appium-dashboard": "^2.0.3"
+  },
+  "devDependencies": {
+    "appium-uiautomator2-driver": "^3.9.2"
+  }
 }
