@@ -1,4 +1,4 @@
-package factory.pagecomponent
+package factory.driver
 
 import io.appium.java_client.AppiumDriver
 

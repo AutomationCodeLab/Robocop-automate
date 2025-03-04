@@ -10,6 +10,7 @@ repositories {
 dependencies {
     implementation libs.appium
     implementation libs.bundles.kotlin
+    implementation libs.dotenv
 
     testImplementation libs.junit.jupiter.api
     testImplementation libs.junit.jupiter.params

@@ -1,6 +1,6 @@
 package tests
 
-import driver.AppiumDriverFactory
+import driver.AndroidDriverFactory
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -11,7 +11,7 @@ import pages.Pages
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CheckMainButtonTextTest {
-    private val driver = AppiumDriverFactory()(this::class.simpleName!!)
+    private val driver = AndroidDriverFactory()(this::class.simpleName!!)
 
     @Nested
     @DisplayName("Given I am on the main screen")
