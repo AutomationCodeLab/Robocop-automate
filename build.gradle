@@ -13,8 +13,8 @@ dependencies {
 
     testImplementation libs.junit.jupiter.api
     testImplementation libs.junit.jupiter.params
+    testImplementation libs.junit.platform.launcher
     testRuntimeOnly libs.junit.jupiter.engine
-    testRuntimeOnly libs.junit.vintage.engine
 }
 
 test {
