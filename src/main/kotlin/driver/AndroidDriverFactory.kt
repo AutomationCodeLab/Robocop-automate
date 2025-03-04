@@ -15,7 +15,7 @@ import java.time.Duration
 
 class AndroidDriverFactory : IDriverFactory {
     private val appiumClientConfig =
-        AppiumClientConfig.defaultConfig().readTimeout(Duration.ofMinutes(1))
+        AppiumClientConfig.defaultConfig().readTimeout(Duration.ofSeconds(30))
     private val configuration = ConfigurationFactory()()
 
     override fun invoke(testName: String): AppiumDriver =
