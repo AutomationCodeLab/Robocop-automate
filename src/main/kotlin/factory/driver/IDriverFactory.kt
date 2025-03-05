@@ -1,7 +1,7 @@
 package factory.driver
 
-import io.appium.java_client.AppiumDriver
+import driver.DriverModel
 
 interface IDriverFactory {
-    operator fun invoke(testName: String): AppiumDriver
+    operator fun invoke(testName: String): DriverModel
 }

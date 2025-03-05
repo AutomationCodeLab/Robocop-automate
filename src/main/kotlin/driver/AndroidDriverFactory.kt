@@ -4,24 +4,24 @@ import config.Configuration
 import config.ConfigurationFactory
 import factory.driver.IDriverFactory
 import io.appium.java_client.AppiumClientConfig
-import io.appium.java_client.AppiumDriver
 import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.android.options.UiAutomator2Options
-import io.appium.java_client.remote.options.BaseOptions
-import io.appium.java_client.remote.options.SupportsDeviceNameOption
 import org.openqa.selenium.UsernameAndPassword
 import java.net.URI
 import java.time.Duration
 
 class AndroidDriverFactory : IDriverFactory {
     private val appiumClientConfig =
-        AppiumClientConfig.defaultConfig().readTimeout(Duration.ofSeconds(30))
+        AppiumClientConfig.defaultConfig().readTimeout(Duration.ofMinutes(5))
     private val configuration = ConfigurationFactory()()
 
-    override fun invoke(testName: String): AppiumDriver =
+    override fun invoke(testName: String): DriverModel =
         when (configuration.client) {
-            is Configuration.Client.Local -> createLocalDriver()
-            is Configuration.Client.Remote -> createRemoteDriver(testName)
+            is Configuration.Client.Local -> DriverModel(createLocalDriver(), configuration.client)
+            is Configuration.Client.Remote -> DriverModel(
+                createRemoteDriver(testName),
+                configuration.client
+            )
         }
 
     private fun createLocalDriver(): AndroidDriver =
@@ -32,40 +32,19 @@ class AndroidDriverFactory : IDriverFactory {
         )
 
     private fun createRemoteDriver(testName: String): AndroidDriver {
-        val robocopClientConfig = configuration.client as Configuration.Client.Remote
+        val remoteClientConfig = configuration.client as Configuration.Client.Remote
         return AndroidDriver(
             appiumClientConfig.authenticateAs(
                 UsernameAndPassword(
-                    robocopClientConfig.userName,
-                    robocopClientConfig.accessKey
+                    remoteClientConfig.userName,
+                    remoteClientConfig.accessKey
                 )
             )
-                .baseUri(URI("https://${robocopClientConfig.userName}:${robocopClientConfig.accessKey}@hub.browserstack.com/wd/hub")),
-            browserStackCapabilities(capabilities, testName)
+                .baseUri(URI("https://${remoteClientConfig.userName}:${remoteClientConfig.accessKey}@hub.browserstack.com/wd/hub")),
+            browserStackCapabilities(capabilities, testName, remoteClientConfig)
         )
     }
 
-    private val capabilities = UiAutomator2Options().apply {
-        setApp(configuration.client.app)
-    }
-
-    private fun <T> browserStackCapabilities(
-        options: T,
-        testName: String
-    ) where T : BaseOptions<T>, T : SupportsDeviceNameOption<T> = options.apply {
-        val robocopClientConfig = configuration.client as Configuration.Client.Remote
-        val capabilities = mapOf(
-            "buildName" to robocopClientConfig.buildName,
-            "deviceName" to robocopClientConfig.device.name,
-            "osVersion" to robocopClientConfig.device.osVersion,
-            "projectName" to robocopClientConfig.device.platform,
-            "sessionName" to testName,
-            "userName" to robocopClientConfig.userName,
-            "accessKey" to robocopClientConfig.accessKey,
-            "debug" to true,
-            "networkLogs" to false,
-            "appiumVersion" to "2.0.1"
-        )
-        setCapability("bstack:options", capabilities)
-    }
+    private val capabilities: UiAutomator2Options
+        get() = UiAutomator2Options().apply { setApp(configuration.client.app) }
 }

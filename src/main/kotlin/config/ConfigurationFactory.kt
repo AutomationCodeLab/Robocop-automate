@@ -11,7 +11,7 @@ class ConfigurationFactory : IConfigurationFactory {
         val device = Configuration.Client.Device(
             platform = dotenv.get(EnvironmentConstants.PLATFORM),
             name = dotenv.get(EnvironmentConstants.DEVICE_NAME),
-            osVersion = dotenv.get(EnvironmentConstants.OS_VERSION),
+            platformVersion = dotenv.get(EnvironmentConstants.PLATFORM_VERSION),
             udid = dotenv.get(EnvironmentConstants.UDID)
         )
         return if (run == "LOCAL") {
@@ -47,7 +47,7 @@ private object EnvironmentConstants {
     const val BUILD_NAME = "BUILD_NAME"
     const val DEVICE_NAME = "DEVICE_NAME"
     const val PLATFORM = "PLATFORM"
-    const val OS_VERSION = "OS_VERSION"
+    const val PLATFORM_VERSION = "PLATFORM_VERSION"
     const val UDID = "UDID"
     const val SERVER_HOST = "SERVER_HOST"
     const val SERVER_PORT = "SERVER_PORT"

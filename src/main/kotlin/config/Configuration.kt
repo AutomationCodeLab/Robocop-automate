@@ -21,7 +21,7 @@ data class Configuration(val client: Client, val server: Server? = null) {
         data class Device(
             val platform: String,
             val name: String? = null,
-            val osVersion: String? = null,
+            val platformVersion: String? = null,
             val udid: String? = null
         )
     }

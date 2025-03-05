@@ -1,6 +1,6 @@
 package tests
 
-import driver.AndroidDriverFactory
+import core.AutomationTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -10,13 +10,11 @@ import org.junit.jupiter.api.TestInstance
 import pages.Pages
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class CheckMainButtonTextTest {
-    private val driver = AndroidDriverFactory()(this::class.simpleName!!)
-
+class CheckMainButtonTextTest : AutomationTest("CheckMainButtonTextTest") {
     @Nested
     @DisplayName("Given I am on the main screen")
     inner class MainScreen {
-        private val pages = Pages(driver)
+        private val pages = Pages(driverModel.appiumDriver)
         private val mainPage = pages.main
 
         @Test

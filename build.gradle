@@ -11,6 +11,7 @@ dependencies {
     implementation libs.appium
     implementation libs.bundles.kotlin
     implementation libs.dotenv
+    implementation libs.gson
 
     testImplementation libs.junit.jupiter.api
     testImplementation libs.junit.jupiter.params

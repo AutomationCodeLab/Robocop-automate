@@ -5,6 +5,7 @@ kotlin = "1.9.23"
 ktlint = "12.1.0"
 junit-platform = "1.10.0"
 dotenv = "6.4.1"
+gson = "2.11.0"
 
 [libraries]
 appium = { group = "io.appium", name = "java-client", version.ref = "appium" }
@@ -15,6 +16,7 @@ junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engi
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-platform" }
 dotenv = { group = "io.github.cdimascio", name = "dotenv-kotlin", version.ref = "dotenv"}
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [bundles]
 kotlin = ["kotlin-reflect", "kotlin-stdlib"]
