@@ -10,4 +10,4 @@ response=$(curl -u "$APP_AUTOMATE_USER:$APP_AUTOMATE_KEY" \
   -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
   -F "file=@$file")
 app_url=$(echo "$response" | jq -r '.app_url')
-echo "name=$app_url" >> "$GITHUB_OUTPUT"
+echo "app_url=$app_url" >> "$GITHUB_OUTPUT"
