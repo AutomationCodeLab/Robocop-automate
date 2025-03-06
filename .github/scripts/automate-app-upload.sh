@@ -11,4 +11,4 @@ response=$(curl -u "$APP_AUTOMATE_USER:$APP_AUTOMATE_KEY" \
   -F "file=@$file")
 app_url=$(echo "$response" | jq -r '.app_url')
 echo "APP URL: $app_url"
-echo "name=$app_url" >> "$GITHUB_OUTPUT"
+echo "::set-output name=app_url::$app_url"

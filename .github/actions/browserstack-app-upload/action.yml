@@ -26,7 +26,7 @@ inputs:
 
 outputs:
   app_url:
-    description: BrowserStack app url
+    description: 'BrowserStack app url'
     value: ${{ steps.automate-app-upload.outputs.app_url }}
 
 runs:
