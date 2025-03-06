@@ -1,11 +1,12 @@
 # Robocop-automate
 
-This project provides a streamlined approach to automating mobile app testing using BrowserStack. It includes workflows for uploading apps to BrowserStack, running automated tests, and managing the overall testing process.
+This project provides a streamlined approach to automating mobile app testing using BrowserStack. It leverages **Appium** with **JUnit 5** and **Kotlin** to write and execute automated tests. It includes workflows for uploading apps to BrowserStack, running automated tests, and managing the overall testing process.
 
 ## Key Features
 
 *   **Automated App Upload:** Automatically uploads your mobile app to BrowserStack for testing.
 *   **BrowserStack Test Execution:** Executes automated tests on BrowserStack's real device cloud.
+*   **Appium with JUnit 5 and Kotlin:** Uses Appium for mobile automation, JUnit 5 for test structure, and Kotlin for writing tests.
 *   **CI/CD Integration:** Designed for seamless integration with CI/CD pipelines.
 * **Version Catalog** The project uses a version catalog to manage dependencies.
 
@@ -39,7 +40,7 @@ This is another custom GitHub Action located in `.github/actions/run-automation`
 **Key Responsibilities:**
 
 *   **Authentication:** Authenticates with BrowserStack using the provided credentials.
-*   **Test Execution:** Executes the automated tests using the specified app URL and test suite.
+*   **Test Execution:** Executes the **Appium** automated tests written in **Kotlin** using **JUnit 5** on BrowserStack.
 *   **Reporting:** Provides test results and logs.
 * **App URL:** Uses the app url provided by the `browserstack-app-upload` action.
 
