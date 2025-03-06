@@ -1,11 +1,8 @@
 name: BrowserStack App Automate Automation
 
 on:
-#  repository_dispatch:
-#    types: [Robocop APK Uploaded]
-  push:
-    branches:
-      - main
+  repository_dispatch:
+    types: [Robocop APK Uploaded]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}
@@ -20,7 +17,7 @@ jobs:
       matrix:
         devices:
           - { name: "OnePlus 8", platformVersion: "10.0" }
-          #- { name: "Google Pixel 9 Pro XL", platformVersion: "15.0" }
+          - { name: "Google Pixel 9 Pro XL", platformVersion: "15.0" }
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,8 +38,7 @@ jobs:
         with:
           repository: AutomationCodeLab/Robocop
           token: ${{ secrets.ACTIONS_TOKEN }}
-          run_id: 13682401717
-          # run_id: ${{ github.event.client_payload.run_id }}
+          run_id: ${{ github.event.client_payload.run_id }}
           artifact_name: Robocop APK
           filename: app-release-unsigned.apk
           app_automate_user: ${{ secrets.APP_AUTOMATE_USERNAME }}
