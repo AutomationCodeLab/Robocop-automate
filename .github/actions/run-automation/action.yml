@@ -1,0 +1,42 @@
+name: Run Automation Tests
+
+inputs:
+    platform:
+        description: 'Platform to run tests on'
+        required: true
+    platform_version:
+        description: 'Platform version to run tests on'
+        required: true
+    device_name:
+        description: 'Device to run tests on'
+        required: true
+    test_name:
+        description: 'Name of the test to run'
+        required: true
+    app_url:
+        description: 'URL of the app to test'
+        required: true
+    run_number:
+        description: 'Run number of the workflow'
+        required: true
+    app_automate_user:
+        description: 'BrowserStack App Automate username'
+        required: true
+    app_automate_key:
+        description: 'BrowserStack App Automate access key'
+        required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Automation for ${{ inputs.platform }} Robocop running on ${{ inputs.device_name }}-${{ inputs.platform_version }}
+      run: ./gradlew :test --tests ${{ inputs.test_name }}
+      env:
+        APP: ${{ inputs.app_url }}
+        PLATFORM: ${{ inputs.platform }}
+        PLATFORM_VERSION: ${{ inputs.platform_version }}
+        DEVICE_NAME: ${{ inputs.device_name }}
+        BUILD_NAME: GH_AUTOMATION_${{ inputs.run_number }}
+        APP_AUTOMATE_USER: ${{ inputs.app_automate_user }}
+        APP_AUTOMATE_KEY: ${{ inputs.app_automate_key }}
+      shell: bash

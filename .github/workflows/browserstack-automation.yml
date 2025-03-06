@@ -1,0 +1,62 @@
+name: BrowserStack App Automate Automation
+
+on:
+#  repository_dispatch:
+#    types: [Robocop APK Uploaded]
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  test-automation:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        devices:
+          - { name: "OnePlus 8", platformVersion: "10.0" }
+          #- { name: "Google Pixel 9 Pro XL", platformVersion: "15.0" }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Upload APK to App Automate
+        uses: ./.github/actions/browserstack-app-upload
+        id: automate-app-upload
+        with:
+          repository: AutomationCodeLab/Robocop
+          token: ${{ secrets.ACTIONS_TOKEN }}
+          run_id: 13682401717
+          # run_id: ${{ github.event.client_payload.run_id }}
+          artifact_name: Robocop APK
+          filename: app-release-unsigned.apk
+          app_automate_user: ${{ secrets.APP_AUTOMATE_USERNAME }}
+          app_automate_key: ${{ secrets.APP_AUTOMATE_ACCESS_KEY }}
+
+      - name: Run tests
+        uses: ./.github/actions/run-automation
+        with:
+          platform: android
+          platform_version: ${{ matrix.devices.platformVersion }}
+          device_name: ${{ matrix.devices.name }}
+          test_name: 'tests.*'
+          app_url: ${{ steps.automate-app-upload.outputs.app_url }}
+          run_number: ${{ github.run_number }}
+          app_automate_user: ${{ secrets.APP_AUTOMATE_USERNAME }}
+          app_automate_key: ${{ secrets.APP_AUTOMATE_ACCESS_KEY }}
+

@@ -1,0 +1,47 @@
+name: BrowserStack App Automate App Upload
+description: Downloads the application file from the artifact registry and uploads it to BrowserStack App Automate
+
+inputs:
+  repository:
+    description: 'Repository to download APK from (<org_name/repo_name>)'
+    required: true
+  token:
+    description: 'Github fine-grained token with repository access'
+    required: true
+  run_id:
+    description: 'Id of the workflow run that uploaded the APK'
+    required: true
+  artifact_name:
+    description: 'Name of the artifact to download'
+    required: true
+  filename:
+    description: 'Name of the file to download'
+    required: true
+  app_automate_user:
+    description: 'BrowserStack App Automate username'
+    required: true
+  app_automate_key:
+    description: 'BrowserStack App Automate access key'
+    required: true
+
+outputs:
+  app_url:
+    description: BrowserStack app url
+    value: ${{ steps.automate-app-upload.outputs.app_url }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Download application file
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts/app
+        name: ${{ inputs.artifact_name }}
+        github-token: ${{ inputs.token }}
+        repository: ${{ inputs.repository }}
+        run-id: ${{ inputs.run_id }}
+
+    - name: Upload app to BrowserStack App Automate
+      id: automate-app-upload
+      run: bash ./.github/scripts/automate-app-upload.sh ${{ inputs.filename }} ${{ inputs.app_automate_user }} ${{ inputs.app_automate_key }}
+      shell: bash
