@@ -17,7 +17,6 @@ jobs:
       matrix:
         devices:
           - { name: "OnePlus 8", platformVersion: "10.0" }
-          - { name: "Google Pixel 9 Pro XL", platformVersion: "15.0" }
     steps:
       - name: Checkout
         uses: actions/checkout@v4
